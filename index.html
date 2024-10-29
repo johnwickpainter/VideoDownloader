@@ -10,7 +10,7 @@
     <div class="container">
         <h1>Video Downloader</h1>
         <p>Select a video quality and enter a URL to download the video.</p>
-
+        
         <form id="downloadForm">
             <label for="url">Video URL:</label>
             <input type="text" id="url" name="url" placeholder="Enter video URL here" required>
@@ -27,6 +27,10 @@
         </form>
 
         <p id="downloadLink" style="display:none;"></p>
+
+        <p class="disclaimer">
+            Note: This tool is intended for downloading public domain or licensed content only. Please respect the terms of service of video platforms and copyright laws. Downloading copyrighted content without permission may be illegal.
+        </p>
     </div>
 
     <script>
@@ -36,7 +40,7 @@
             const quality = document.getElementById("quality").value;
 
             try {
-                const response = await fetch("https://YOUR-BACKEND-URL/download", {
+                const response = await fetch("http://77.37.121.40:8000/download", {  // IP with port
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ url, quality })
@@ -46,7 +50,7 @@
                 
                 if (response.ok) {
                     downloadLink.style.display = "block";
-                    downloadLink.innerHTML = `<a href="https://YOUR-BACKEND-URL${data.download_url}" download>Click here to download your video</a>`;
+                    downloadLink.innerHTML = `<a href="http://77.37.121.40:8000${data.download_url}" download>Click here to download your video</a>`;
                 } else {
                     alert("Error: " + data.error);
                     downloadLink.style.display = "none";
