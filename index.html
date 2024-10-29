@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Downloader</title>
-    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Video Downloader</h1>
+        <p>Select a video quality and enter a URL to download the video.</p>
+
         <form id="downloadForm">
             <label for="url">Video URL:</label>
             <input type="text" id="url" name="url" placeholder="Enter video URL here" required>
@@ -22,10 +23,10 @@
                 <option value="360p">360p</option>
             </select>
             
-            <button type="submit">Download</button>
+            <button type="submit" class="send-button">Download</button>
         </form>
 
-        <p id="downloadLink"></p>
+        <p id="downloadLink" style="display:none;"></p>
     </div>
 
     <script>
