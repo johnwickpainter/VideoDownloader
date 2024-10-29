@@ -2,26 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Downloader</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Video Downloader</h1>
-    <form id="downloadForm">
-        <label for="url">Video URL:</label>
-        <input type="text" id="url" name="url" required>
-        <br><br>
-        <label for="quality">Select Quality:</label>
-        <select id="quality" name="quality">
-            <option value="1080p">1080p</option>
-            <option value="720p">720p</option>
-            <option value="480p">480p</option>
-            <option value="360p">360p</option>
-        </select>
-        <br><br>
-        <button type="submit">Download</button>
-    </form>
+    <div class="container">
+        <h1>Video Downloader</h1>
+        <form id="downloadForm">
+            <label for="url">Video URL:</label>
+            <input type="text" id="url" name="url" placeholder="Enter video URL here" required>
+            
+            <label for="quality">Select Quality:</label>
+            <select id="quality" name="quality">
+                <option value="1080p">1080p</option>
+                <option value="720p">720p</option>
+                <option value="480p">480p</option>
+                <option value="360p">360p</option>
+            </select>
+            
+            <button type="submit">Download</button>
+        </form>
 
-    <p id="downloadLink" style="display:none;"></p>
+        <p id="downloadLink"></p>
+    </div>
 
     <script>
         document.getElementById("downloadForm").addEventListener("submit", async function(event) {
@@ -36,12 +41,14 @@
                     body: JSON.stringify({ url, quality })
                 });
                 const data = await response.json();
+                const downloadLink = document.getElementById("downloadLink");
+                
                 if (response.ok) {
-                    const link = document.getElementById("downloadLink");
-                    link.style.display = "block";
-                    link.innerHTML = `<a href="https://YOUR-BACKEND-URL${data.download_url}" download>Click here to download your video</a>`;
+                    downloadLink.style.display = "block";
+                    downloadLink.innerHTML = `<a href="https://YOUR-BACKEND-URL${data.download_url}" download>Click here to download your video</a>`;
                 } else {
                     alert("Error: " + data.error);
+                    downloadLink.style.display = "none";
                 }
             } catch (error) {
                 alert("An error occurred: " + error.message);
